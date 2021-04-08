@@ -151,27 +151,6 @@
 #define VHOST_VDPA_GET_IOVA_RANGE	_IOR(VHOST_VIRTIO, 0x78, \
 					     struct vhost_vdpa_iova_range)
 
-struct vhost_nvme_target {
-	char vhost_wwpn[224]; /* TRANSPORT_IQN_LEN */
-};
-
-struct nvmet_vhost_eventfd {
-	int num;
-	int fd;
-	int *irq_enabled;
-	int *vector;
-};
-
-#define VHOST_NVME_BAR_READ 0
-#define VHOST_NVME_BAR_WRITE 1
-
-struct nvmet_vhost_bar {
-	int type; /* read/write */
-	u64 offset;
-	unsigned size;
-	u64 val;
-};
-
 #define VHOST_NVME_SET_ENDPOINT _IOW(VHOST_VIRTIO, 0x45, struct vhost_nvme_target)
 #define VHOST_NVME_CLEAR_ENDPOINT _IOW(VHOST_VIRTIO, 0x46, struct vhost_nvme_target)
 #define VHOST_NVME_SET_EVENTFD _IOW(VHOST_VIRTIO, 0x47, struct nvmet_vhost_eventfd)

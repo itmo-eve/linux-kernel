@@ -2,6 +2,7 @@
 #include <linux/compat.h>
 #include <linux/eventfd.h>
 #include <linux/vhost.h>
+#include <linux/vhost_types.h>
 #include <linux/miscdevice.h>
 #include <linux/mutex.h>
 #include <linux/file.h>
@@ -1041,8 +1042,8 @@ static long nvmet_vhost_ioctl(struct file *f, unsigned int ioctl,
 	struct nvmet_vhost_ctrl *ctrl = f->private_data;
 	struct vhost_nvme_target conf;
 	void __user *argp = (void __user *)arg;
-	u64 __user *featurep = argp;
-	u64 features;
+	// u64 __user *featurep = argp;
+	// u64 features;
 	int r;
 
 	switch (ioctl) {
@@ -1061,11 +1062,11 @@ static long nvmet_vhost_ioctl(struct file *f, unsigned int ioctl,
 		return r;
 	case VHOST_NVME_BAR:
 		return nvmet_vhost_ioc_bar(ctrl, argp);
-	case VHOST_GET_FEATURES:
+/* 	case VHOST_GET_FEATURES:
 		features = VHOST_FEATURES;
 		if (copy_to_user(featurep, &features, sizeof(features)))
 			return -EFAULT;
-		return 0;
+		return 0; */
 	default:
 		mutex_lock(&ctrl->vdev.mutex);
 		r = vhost_dev_ioctl(&ctrl->vdev, ioctl, argp);
